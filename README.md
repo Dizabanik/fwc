@@ -22,11 +22,14 @@ Using fwc is very simple. Just like this:
 ```bash
 fwc [link]
 ```
+
 For example:
 ```bash
 fwc https://github.com/Dizabanik/fwc
 ```
 
+To use the C code, you should include `fwc.h` file and add `fwc.c` into sources to build. 
+**At this moment, fwc uses OpenSSL, but I will rewrite SSL function in next versions, so project wouldn't have any dependencies**
 ## Tests
 
 Feel the cozy embrace of fwc as it performs faster than your typical website content fetcher. See for yourself:
