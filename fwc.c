@@ -19,6 +19,8 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
+#include "fwc.h"
+
 #define PORT "443"
 void delete_proto(char** buffer, size_t size){
 	size_t i = 0;
@@ -78,7 +80,7 @@ void sep_hostname_path(char **hostname, char **path){
 
 
 }
-int print_contents(char* arg){
+int fwc_print_contents(char* arg){
 	delete_proto(&arg, 1024);
 	struct addrinfo hints = {0};
     hints.ai_family = AF_INET;
@@ -147,10 +149,10 @@ int print_contents(char* arg){
 		SSL_CTX_free(ctx);
 		close(sd);
 
-		return print_contents(buffer);
+		return fwc_print_contents(buffer);
 	}
     while (n > 0) {
-        fwrite(buffer, 1, n, stdout);
+        fwrite(buffer, 1, n, FWC_OUT);
         n = SSL_read(ssl, buffer, 1024);
     }
 		
@@ -163,5 +165,5 @@ int print_contents(char* arg){
 }
 int main(int argc, char **argv)
 {
-	return print_contents(argv[1]);
+	return fwc_print_contents(argv[1]);
 }
